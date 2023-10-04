@@ -16,7 +16,18 @@
                 },
                 "request": {
                     "method": "GET",
-                    "header": []
+                    "header": [],
+                    "url": {
+                        "raw": "localhost:8080/records/1",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                            "records",
+                            "1"
+                        ]
+                    }
                 },
                 "response": [],
                 "uid": "8051061-40fbb85c-bc02-40b8-a395-6d2eb0422786"
@@ -94,7 +105,17 @@
                 },
                 "request": {
                     "method": "GET",
-                    "header": []
+                    "header": [],
+                    "url": {
+                        "raw": "localhost:8080/records",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                            "records"
+                        ]
+                    }
                 },
                 "response": [],
                 "uid": "8051061-2ffc37ae-1f1c-434c-b63a-0a7a4a871729"
