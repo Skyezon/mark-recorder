@@ -1,0 +1,31 @@
+version : '3'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=passwordo
+      - POSTGRES_USER=mezink
+      - POSTGRES_DB=assignment_mezink
+    container_name: db
+    volumes:
+      - ./databaseinit.sql:/docker-entrypoint-initdb.d/databaseinit.sql
+    networks:
+      - my-network
+
+  assignment-mezink:
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    container_name: assignment_mezink
+    build : 
+      context: .
+    networks:
+      - my-network
+
+networks:
+  my-network:
+      driver: bridge
