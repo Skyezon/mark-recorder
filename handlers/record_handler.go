@@ -6,10 +6,25 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/go-chi/chi/v5"
 )
+
+// easier checking database content
+func GetAllRecordHandler(w http.ResponseWriter, r *http.Request) {
+	records, err := services.GetAllRecord()
+	if err != nil {
+		http.Error(w, utils.LogErr(err, "fail to get all records").Error(), http.StatusInternalServerError)
+		return
+	}
+	res, err := json.Marshal(records)
+	if err != nil {
+		http.Error(w, utils.LogErr(err, "fail to marshall").Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
 
 func GetRecordHandler(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
@@ -43,16 +58,17 @@ func CreateRecordHandler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	err = services.CreateRecord(utils.Record{
-		Name:     req.Name,
-		Marks:    req.Marks,
-		CratedAt: time.Now().Format("2006-01-02 15:00:00"),
+		Name:  req.Name,
+		Marks: req.Marks,
+		//CratedAt: time.Now().Format("2006-01-02 15:00:00"), manual input for easier testing
+		CratedAt: req.CreatedAt,
 	})
 	if err != nil {
 		http.Error(w, utils.LogErr(err, "Fail to create record").Error(), http.StatusInternalServerError)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte{})
+	w.Write([]byte("Success"))
 
 }
 

@@ -8,7 +8,8 @@ RUN go mod download && go mod verify
 COPY . .
 RUN go build -v -o ./mezink-test
 
-EXPOSE 8080
+RUN chmod +x ./mezink-test
 
 
-CMD ["mezink-test"]
+
+CMD ./mezink-test

@@ -3,7 +3,9 @@ package datasources
 import (
 	"assignment-mezink/utils"
 	"database/sql"
-	"fmt"
+	"log"
+	"os"
+
 	_ "github.com/lib/pq"
 )
 
@@ -11,12 +13,10 @@ import (
 var Db *sql.DB
 
 func ConnectDB() (err error) {
-	conf, err := utils.GetConfig()
-	if err != nil {
-		return utils.LogErr(err)
-	}
-
-	psqlconn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", conf.DB.DB_HOST, conf.DB.DB_PORT, conf.DB.DB_USER, conf.DB.DB_PASSWORD, conf.DB.DB_NAME)
+	psqlconn := os.Getenv("CONNECTION_STRING") //from docker
+    if psqlconn == ""{
+        log.Fatal("CONNECTION_STRING not set")
+    }
 
 	Db, err = sql.Open("postgres", psqlconn)
 	if err != nil {

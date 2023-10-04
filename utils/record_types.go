@@ -1,10 +1,10 @@
 package utils
 
 type Record struct {
-	Id       int64
-	Name     string
-	Marks    []int
-	CratedAt string
+	Id       int64   `json:"id"`
+    Name     string  `json:"name"`
+	Marks    []int64 `json:"marks"`
+	CratedAt string  `json:"createdAt"`
 }
 
 type GetSumRequest struct {
@@ -15,12 +15,20 @@ type GetSumRequest struct {
 }
 
 type CreateRecordRequest struct {
-    Name string
-    Marks []int
+	Name      string
+	Marks     []int64
+	CreatedAt string
+}
+
+//only for GetSumResponse
+type ModRecord struct {
+	Id         int64  `json:"id"`
+	TotalMarks int64  `json:"totalMarks"`
+	CreatedAt  string `json:"createdAt"`
 }
 
 type GetSumResponse struct {
-    Code int
-    Msg string
-    Records []Record
+    Code    int `json:"code"`
+    Msg     string `json:"msg"`
+    Records []ModRecord `json:"records"`
 }

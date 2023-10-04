@@ -1,0 +1,104 @@
+{
+    "collection": {
+        "info": {
+            "_postman_id": "8bb2dc5c-fd8d-403e-863f-fb3fe47ec0d8",
+            "name": "mezink-assignment",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "updatedAt": "2023-10-04T15:54:03.000Z",
+            "uid": "8051061-8bb2dc5c-fd8d-403e-863f-fb3fe47ec0d8"
+        },
+        "item": [
+            {
+                "name": "Get Record",
+                "id": "40fbb85c-bc02-40b8-a395-6d2eb0422786",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "method": "GET",
+                    "header": []
+                },
+                "response": [],
+                "uid": "8051061-40fbb85c-bc02-40b8-a395-6d2eb0422786"
+            },
+            {
+                "name": "Create Record",
+                "id": "44e3c1d5-4875-4f0c-ae01-d41936675909",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"name\" : \"New Stuff\",\r\n    \"marks\" : [1,2,3,4],\r\n    \"createdAt\": \"2017-02-12:T12:00:01Z\"\r\n}",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "localhost:8080/records",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                            "records"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "8051061-44e3c1d5-4875-4f0c-ae01-d41936675909"
+            },
+            {
+                "name": "get sum (main task)",
+                "id": "4c97767f-32aa-4323-81c6-2fa0944599b0",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n\"startDate\": \"2016-01-26\",\r\n\"endDate\": \"2017-02-02\",\r\n\"minCount\": 200,\r\n\"maxCount\": 1000\r\n}",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "localhost:8080/records/sum",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "8080",
+                        "path": [
+                            "records",
+                            "sum"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "8051061-4c97767f-32aa-4323-81c6-2fa0944599b0"
+            },
+            {
+                "name": "Get all record",
+                "id": "2ffc37ae-1f1c-434c-b63a-0a7a4a871729",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "method": "GET",
+                    "header": []
+                },
+                "response": [],
+                "uid": "8051061-2ffc37ae-1f1c-434c-b63a-0a7a4a871729"
+            }
+        ]
+    }
+}

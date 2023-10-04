@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:latest
     ports:
-      - 5432:5432
+      - 5432
     environment:
       - POSTGRES_PASSWORD=passwordo
       - POSTGRES_USER=mezink
@@ -23,6 +23,8 @@ services:
     container_name: assignment_mezink
     build : 
       context: .
+    environment:
+      CONNECTION_STRING: postgres://mezink:passwordo@db:5432/assignment_mezink?sslmode=disable
     networks:
       - my-network
 

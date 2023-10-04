@@ -3,16 +3,39 @@ package datasources
 import (
 	"assignment-mezink/utils"
 	"fmt"
+
+	"github.com/lib/pq"
 )
 
+func GetAllRecord() ([]utils.Record, error) {
+	query := fmt.Sprintf("SELECT * FROM records")
+	stmt, err := Db.Prepare(query)
+	if err != nil {
+		return []utils.Record{},utils.LogErr(err)
+	}
+	defer stmt.Close()
+	rows, err := stmt.Query()
+    if err != nil {
+        return []utils.Record{},utils.LogErr(err)
+    }
+	res := make([]utils.Record, 0)
+	for rows.Next() {
+		var record utils.Record
+		rows.Scan(&record.Id, &record.Name, pq.Array(&record.Marks), &record.CratedAt)
+        res = append(res, record)
+	}
+    return res,nil
+
+}
+
 func InsertRecord(newRecord utils.Record) error {
-	query := fmt.Sprintf("INSERT INTO records VALUES ($1,$2,$3);")
+	query := fmt.Sprintf("INSERT INTO records (name, marks, createdAt) VALUES ($1,$2,$3);")
 	stmt, err := Db.Prepare(query)
 	if err != nil {
 		return utils.LogErr(err)
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(newRecord.Name, newRecord.Marks, newRecord.CratedAt)
+	_, err = stmt.Exec(newRecord.Name, pq.Array(newRecord.Marks), newRecord.CratedAt)
 	if err != nil {
 		return err
 	}
@@ -28,7 +51,7 @@ func GetRecord(id int) (utils.Record, error) {
 	defer stmt.Close()
 	row := stmt.QueryRow(id)
 	var record utils.Record
-	if err = row.Scan(&record.Id, &record.Name, &record.Marks, &record.CratedAt); err != nil {
+	if err = row.Scan(&record.Id, &record.Name, pq.Array(&record.Marks), &record.CratedAt); err != nil {
 		return utils.Record{}, utils.LogErr(err)
 	}
 	return record, nil
@@ -50,7 +73,7 @@ func GetRecordBetweenDates(startDate string, endDate string) ([]utils.Record, er
 
 	for rows.Next() {
 		var record utils.Record
-		if err := rows.Scan(&record.Id, &record.Name, &record.Marks, &record.CratedAt); err != nil {
+		if err := rows.Scan(&record.Id, &record.Name, pq.Array(&record.Marks), &record.CratedAt); err != nil {
 			return []utils.Record{}, utils.LogErr(err)
 		}
 		result = append(result, record)

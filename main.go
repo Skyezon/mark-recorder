@@ -19,6 +19,7 @@ func main() {
 	//initalize router
 	r := chi.NewRouter()
 	r.Route("/records", func(r chi.Router) {
+        r.Get("/",handlers.GetAllRecordHandler)
 		r.Get("/{id}", handlers.GetRecordHandler)
 		r.Post("/", handlers.CreateRecordHandler)
 		r.Post("/sum", handlers.GetSumRecordHandler)

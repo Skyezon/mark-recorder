@@ -1,9 +1,7 @@
 package utils
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"runtime"
 )
@@ -13,31 +11,15 @@ type Config struct {
 }
 
 type Database struct {
-	DB_NAME     string `json:"db_name"`
-	DB_PASSWORD string
-	DB_HOST     string
-	DB_PORT     string
-	DB_USER     string
+    DB_NAME     string `json:"db_name"`
+    DB_PASSWORD string `json:"db_password"`
+    DB_HOST     string `json:"db_host"`
+    DB_PORT     string `json:"db_port"`
+    DB_USER     string `json:"db_user"`
 }
 
-func GetConfig()(Config,error){
-	content, err := ioutil.ReadFile("./env.json")
-    if err != nil {
-        return Config{},LogErr(err,"fail to read env.json")
-    }
 
-    var config Config
-    err = json.Unmarshal(content,&config)
-
-    if err != nil {
-        return Config{},LogErr(err,"fail to unmarshall");
-    }
-
-    return config, nil
-
-}
-
-//easier error tracking & debuggin purposes
+//easier error tracking & debuggin purposes: basicly will show line of error where it happen & optional error message (from internet)
 func LogErr(err error, msgToDev ...string) error {
 	pc := make([]uintptr, 5)
 	n := runtime.Callers(2, pc)
